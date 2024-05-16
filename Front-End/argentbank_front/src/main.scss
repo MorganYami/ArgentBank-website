@@ -1,0 +1,48 @@
+@import './Components/header/style.scss';
+@import './Components/footer/style.scss';
+@import './Components/intro/style.scss';
+@import './Components/item/style.scss';
+@import './Components/formulaire/style.scss';
+@import './Components/compte/style.scss';
+@import './Components/information/style.scss';
+
+@import './Pages/accueil/style.scss';
+@import './Pages/connexion/style.scss';
+@import './Pages/user/style.scss';
+
+@media (min-width: 920px) {
+    .introduction {
+      height: 400px;
+      background-position: 0% 33%;
+      section {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        width: 300px;
+        margin: 2rem;
+        p {
+          font-size: 1.2rem;
+        }
+        .subtitle {
+          font-size: 1.5rem;
+        }
+      }
+    }
+    .items {
+      flex-direction: row;
+    }
+  }
+  
+  @media (min-width: 720px) {
+    .compte {
+      flex-direction: row;
+      .cta {
+        flex: 0;
+        button {
+          width: 200px;
+        }
+      }
+    } 
+
+  
+}
