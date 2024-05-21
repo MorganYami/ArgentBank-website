@@ -1,7 +1,7 @@
 import { initialeState } from './store'
 
 
-export function reducer (state, action) {
+export function rootReducer (state, action) {
   if (state === undefined) {
     state = initialeState
   }
@@ -21,21 +21,11 @@ export function reducer (state, action) {
           ...state.user,
           prenom: action.payload.body.firstName,
           nom: action.payload.body.lastName,
-          username: action.payload.body.userName
+          userName: action.payload.body.userName
         }
       }
     }
-    case 'updateUser' : {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          prenom: action.payload.body.firstName,
-          nom: action.payload.body.lastName,
-          username: action.payload.body.userName
-        }
-      }
-    }
+    
     case 'deconnexion' : {
       return {
         ...state,
@@ -46,7 +36,7 @@ export function reducer (state, action) {
           ...state.user,
           prenom: '',
           nom: '',
-          username: ' '
+          userName: ' '
         }
       }
     }

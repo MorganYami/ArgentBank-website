@@ -6,14 +6,17 @@ import Connexion from './pages/Connexion/Connexion'
 import User from './pages/User/User'
 import { Provider } from 'react-redux'
 import './main.scss';
+// import history from './redux/history'
+import store from './redux/store'
 
 const container = document.getElementById('root')
 const root = createRoot(container)
 
 
 root.render(
-  <Provider>
+  <Provider store={store}>
     <React.StrictMode>
+      {/* <Router history={history}> */}
       <Router>
         <Routes>
           <Route path='/' element={<Accueil />} />

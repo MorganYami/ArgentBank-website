@@ -101,16 +101,16 @@ function Formulaire () {
       <h1> Sign In </h1>
       <form>
         <div className='input-wrapper'>
-          <label htmlFor='username'>Username</label>
-          <input type='text' list='usernames' id='email' required />
+          <label htmlFor='email'>Username</label>
+          <input type='text' list='usernames' id='email' autoComplete="off" required />
         </div>
         <div className='input-wrapper'>
           <label htmlFor='password'>Password</label>
-          <input type='password' id='password' required />
+          <input type='password' id='password' autoComplete="off" required />
         </div>
         <div className='input-remember'>
-          <input type='checkbox' id='remember-me' />
           <label htmlFor='remember-me'>Remember me</label>
+          <input type='checkbox' id='remember-me' />
         </div>
         <button
           className='sign-in-button'

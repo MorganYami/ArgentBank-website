@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 
 function Header () {
   const connected = useSelector(state => state.connected)
-  const username = useSelector(state => state.user.username)
+  const userName = useSelector(state => state.user.userName)
 
   useEffect(() => {
     const divConnected = document.getElementsByClassName('connected')[0]
@@ -37,7 +37,7 @@ function Header () {
         <div className='connected'>
           <Link to='/Profile'>
             <i className='fa-solid fa-2x fa-circle-user' />
-            <p> {username} </p>
+            <p> {userName} </p>
           </Link>
           <Link to='/' onClick={(event) => { store.dispatch(deconnexion()) }}>
             <i className='fa-solid fa-arrow-right-from-bracket' />

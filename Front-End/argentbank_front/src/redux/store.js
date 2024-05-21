@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from 'redux'
-import { reducer } from './reducer'
-import thunkMiddleware from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { rootReducer } from './reducer'
+import { thunk } from 'redux-thunk'
 
 export const initialeState = {
   users: null,
@@ -10,7 +9,7 @@ export const initialeState = {
   user: {
     prenom: ' ',
     nom: ' ',
-    username: ' '
+    userName: ' '
   },
   token: '',
   error: null
@@ -18,29 +17,27 @@ export const initialeState = {
 
 
 function saveToLocalStorage (state) {
-  try {
-    const serialisedState = JSON.stringify(state)
-    localStorage.setItem('persistantState', serialisedState)
-  } catch (error) {
-    console.warn(error)
+    try {
+      const serialisedState = JSON.stringify(state)
+      localStorage.setItem('persistantState', serialisedState)
+    } catch (error) {
+      console.warn(error)
+    }
   }
-}
-
-
-function loadFromLocalStorage () {
-  try {
-    const serialisedState = localStorage.getItem('persistantState')
-    if (serialisedState === null) return undefined
-    return JSON.parse(serialisedState)
-  } catch (error) {
-    console.warn(error)
-    return undefined
+  
+ 
+  function loadFromLocalStorage () {
+    try {
+      const serialisedState = localStorage.getItem('persistantState')
+      if (serialisedState === null) return undefined
+      return JSON.parse(serialisedState)
+    } catch (error) {
+      console.warn(error)
+      return undefined
+    }
   }
-}
 
-const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
-
-const store = createStore(reducer, loadFromLocalStorage(), composedEnhancer)
+const store = createStore(rootReducer, loadFromLocalStorage(), applyMiddleware(thunk))
 
 store.subscribe(() => saveToLocalStorage(store.getState()))
 
