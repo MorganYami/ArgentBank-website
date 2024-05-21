@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 
-// import "./style.scss";
 
 function Compte ({ titre, montant, description }) {
   return (

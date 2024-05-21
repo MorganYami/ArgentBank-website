@@ -2,16 +2,15 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Compte from '../../components/Compte/Compte'
 import Information from '../../components/Information/Information'
-// import Error from './pages/error'
-// import Connexion from '../Connexion/Connexion'
-// import { Routes, Route } from 'react-router-dom'
-// import { useSelector } from 'react-redux'
+import Connexion from '../Connexion/Connexion'
+import { Routes, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 function User () {
-  // const connected = useSelector(state => state.connected)
+  const connected = useSelector(state => state.connected)
   return (
-    // connected
-    //   ? (
+    connected
+      ? (
         <div className='user'>
           <Header />
           <main>
@@ -22,9 +21,8 @@ function User () {
           </main>
           <Footer />
         </div>
-        // )
-        // : (<Routes><Route path='/*' element={<Connexion />} /></Routes>)
-      // : (<Routes><Route path='/*' element={<Error />} /></Routes>)
+        )
+        : (<Routes><Route path='/*' element={<Connexion />} /></Routes>)
   )
 }
 export default User

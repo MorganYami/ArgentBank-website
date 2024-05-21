@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-// import "./style.scss";
+
 
 function Item ({ image, titre, description }) {
   return (

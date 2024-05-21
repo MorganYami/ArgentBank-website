@@ -1,4 +1,3 @@
-// import "./style.scss";
 
 function Footer () {
     return (
