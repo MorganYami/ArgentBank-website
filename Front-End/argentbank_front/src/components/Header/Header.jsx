@@ -1,8 +1,8 @@
 import mainLogo from '../../assets/argentBankLogo.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { deconnexion } from '../../redux/action'
-import store from '../../redux/store'
+import { deconnexion } from '../../store/action'
+import store from '../../store/store'
 import { useEffect } from 'react'
 
 function Header () {
