@@ -1,50 +1,46 @@
-import mainLogo from '../../assets/argentBankLogo.png'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { logOut } from '../../store/reducer'
-import { store } from '../../store/store'
-import { useEffect } from 'react'
+import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../store/reducer';
 
-function Header () {
-  const connected = useSelector(state => state.connected)
-  // const userName = useSelector(state => state.user.userName)
+import Logo from '../../assets/images/argentBankLogo.webp';
 
-  useEffect(() => {
-    const divConnected = document.getElementsByClassName('connected')[0]
-    const aNotConnected = document.getElementsByClassName('notConnected')[0]
+function Header() {
+    // Enregistrement du token avec useSelector
+    const token = useSelector(state => state.user.token);
+    const user = useSelector(store => store.user)
+    const dispatch = useDispatch();
 
-    if (divConnected !== undefined || aNotConnected !== undefined) {
-      if (connected) {
-        divConnected.style.display = 'flex'
-        aNotConnected.style.display = 'none'
-      } else {
-        divConnected.style.display = 'none'
-        aNotConnected.style.display = 'flex'
-      }
-    }
-  }, [connected])
-
-  return (
-    <header>
-      <nav>
-        <Link to='/'>
-          <img src={mainLogo} alt='Argent Bank Logo' />
-        </Link>
-        <Link to='/Login' className='notConnected'>
-          <i className='fa fa-2x fa-user-circle' />
-          <p> Sign In </p>
-        </Link>
-        <div className='connected'>
-          <Link to='/Profile'>
-            <i className='fa-solid fa-2x fa-circle-user' />
-            {/* <p> {userName} </p> */}
-            <p> Username</p>
-          </Link>
-          <Link to='/' onClick={(event) => { store.dispatch(logOut()) }}>
-            <i className='fa-solid fa-arrow-right-from-bracket' />
-            <p> Sign out </p>
-          </Link>
-        </div>
+    return (
+        <header>
+            <nav className="main-nav">
+                <NavLink className="main-nav-logo" to={'/'}>
+                    <img className="main-nav-logo-image" src={Logo} alt="Argent Bank Logo" />
+                    <h1 className="sr-only">Argent Bank</h1>
+                </NavLink>
+                <div>
+                    {
+                        token ?
+                        // Si le token est là mettre le lien de déconnexion
+                        <div className='user-nav'>
+                            <NavLink className="user-nav-item" to={'/User'}>
+                                <p className='user-nav-name'>{user.userName}</p>
+                                <i className="user-nav-icon fa fa-user-circle"></i>
+                            </NavLink>
+                            <div className="user-nav-item">
+                                <i className="user-nav-icon fa fa-gear"></i>
+                            </div>                            
+                            <NavLink className="user-nav-item" to={'/SignIn'} onClick={() => dispatch(logout())}>
+                            <i className="user-nav-icon fa fa-power-off"></i>
+                            </NavLink>
+                        </div>
+                        :
+                        // Sinon laisser le Sign In
+                        <NavLink className="main-nav-item" to={'/SignIn'}>
+                            <i className="fa fa-user-circle"></i>
+                            Sign In
+                        </NavLink>
+                    }
+                </div>  
       </nav>
     </header>
   )

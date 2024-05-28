@@ -1,37 +1,78 @@
 header {
-    nav {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 20px;
-      img {
-        max-width: 100%;
-        width: 200px;
-      }
-      a {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        text-decoration: none;
-        color: #2c3e50;
-        font-weight: bold;
-        margin-right: 8px;
-        i {
-          margin-right: 10px;
-          font-size: 20px;
-        }
-      }
+  .sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    /* 1 */
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    /* 2 */
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+    /* 3 */
+  }
+
+  .main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+
+    a {
+      font-weight: bold;
+      color: #2c3e50;
     }
-    .connected {
-      display: none;
+
+    a.router-link-exact-active {
+      color: #42b983;
+    }
+
+    .main-nav-item {
+      text-decoration: none;
+      margin-right: 0.5rem;
+    }
+
+    .main-nav-item:hover {
+      text-decoration: underline;
+    }
+
+    .main-nav-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .main-nav-logo-image {
+      max-width: 100%;
+      width: 200px;
+    }
+
+    .user-nav {
+      display: flex;
+      color: #42b983;
+    }
+
+    .user-nav-item {
+      display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      i, p {
-        margin-right: 10px;  
-      }
+      text-decoration: none;
+      color: #42b983;
+      margin-right: 20px;
+    }
+
+    .user-nav-name {
+      color: #42b983;
+      margin-right: 0.5rem;
+    }
+
+    .user-nav-icon {
+      font-size: 30px;
+      color: #42b983;
     }
   }
+}

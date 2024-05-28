@@ -1,36 +1,53 @@
-import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
-  email: null,
-  password: null,
   token: null,
-  firstName: null,
-  lastName: null,
-  // userName: null,
+  userName: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  id: '',
+  isLogged: false,
 };
 
-const authSlice = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {
-    logIn: (state, action) => {
-      state.email = action.payload.email;
-      state.token = action.payload.accessToken;
-    },
-    logOut: (state) => {
-      state.email = null;
-      state.token = null;
-    },
-    updateProfile: (state, action) => {
-      // state.userName = action.payload.userName;
-    },
-  },
-});
+export const login = (payload) => {
+  return {
+      type: 'LOGIN',
+      payload,
+  }
+}
 
-export const { logIn, logOut, updateProfile } = authSlice.actions;
-export default authSlice.reducer;
-export const selectUser = (state) => state.auth.email;
-export const selectToken = (state) => state.auth.token;
-export const selectFirstName = (state) => state.auth.firstName;
-export const selectLastName = (state) => state.auth.lastName;
-// export const selectUserName = (state) => state.auth.userName;
+export const isLogged = (payload) => {
+  return {
+    type: 'IS_LOGGED',
+    payload,
+  }
+}
+
+export const editName = (payload) => {
+  return {
+      type: 'EDIT_NAME',
+      payload,
+  }
+}
+
+export const logout = () => {
+  return {
+      type: 'LOGOUT',
+  }
+}
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+      case 'LOGIN':
+          return { ...state, ...action.payload, isLogged: true }
+      case 'IS_LOGGED':
+          return { ...state, ...action.payload };
+      case'EDIT_NAME':
+          return { ...state, ...action.payload };
+      case 'LOGOUT':
+          return initialState
+      default:
+          return state
+  }
+}
+
+export default reducer;

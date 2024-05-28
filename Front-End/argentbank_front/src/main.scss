@@ -2,12 +2,12 @@
 @import './Components/footer/style.scss';
 @import './Components/intro/style.scss';
 @import './Components/item/style.scss';
-@import './Components/formulaire/style.scss';
+@import './Components/Form/style.scss';
 @import './Components/compte/style.scss';
 @import './Components/information/style.scss';
-
+@import './pages/Error/style.scss';
 @import './Pages/accueil/style.scss';
-@import './Pages/connexion/style.scss';
+@import './Pages/SignIn/style.scss';
 @import './Pages/user/style.scss';
 
 @media (min-width: 920px) {
