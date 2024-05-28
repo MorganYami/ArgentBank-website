@@ -43,7 +43,7 @@ function Formulaire() {
       setPassword("");
       setSuccess(true);
 
-      navigate("/profile");
+      navigate("/User");
 
       dispatch(
         logIn({

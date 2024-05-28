@@ -30,12 +30,12 @@ function Header () {
         <Link to='/'>
           <img src={mainLogo} alt='Argent Bank Logo' />
         </Link>
-        <Link to='/Login' className='notConnected'>
+        <Link to='/Connexion' className='notConnected'>
           <i className='fa fa-2x fa-user-circle' />
           <p> Sign In </p>
         </Link>
         <div className='connected'>
-          <Link to='/Profile'>
+          <Link to='/User'>
             <i className='fa-solid fa-2x fa-circle-user' />
             {/* <p> {userName} </p> */}
             <p> Username</p>

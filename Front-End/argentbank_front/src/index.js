@@ -1,31 +1,20 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Accueil from './pages/Accueil/Accueil';
-import Connexion from './pages/Connexion/Connexion';
-import User from './pages/User/User';
-import { Provider } from 'react-redux';
-import './main.scss';
-import { store } from './store/store';
-// import { AuthProvider } from "./store/AuthProvider";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "../src/store/store";
+import { AuthProvider } from "./store/AuthProvider";
 
-const container = document.getElementById('root')
-const root = createRoot(container)
-
-
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      {/* <AuthProvider> */}
-        <Router>
-          <Routes>
-            <Route path='/' element={<Accueil />} />
-            <Route path='/Login' element={<Connexion />} />
-            <Route path='profile/*' element={<User />} />
-            <Route path='/*' element={<Connexion />} />
-          </Routes>
-        </Router>
-      {/* </AuthProvider> */}
-    </React.StrictMode>
-  </Provider>
-)
+  <React.StrictMode>
+    <Provider store={store}>
+      <AuthProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </AuthProvider>
+    </Provider>
+  </React.StrictMode>
+);

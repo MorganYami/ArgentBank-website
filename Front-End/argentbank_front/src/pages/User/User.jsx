@@ -6,11 +6,18 @@ import Connexion from '../Connexion/Connexion'
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
+import React from "react";
+import { selectToken } from "../../store/reducer";
+import { Navigate } from "react-router-dom";
+
 function User () {
-  const connected = useSelector(state => state.connected)
+  const isLogged = !!useSelector(selectToken);
+  console.log(isLogged);
+  if (!isLogged) {
+    console.log("ERRTFYGYUHIJK");
+    return <Navigate to="/" replace />;
+  }
   return (
-    connected
-      ? (
         <div className='user'>
           <Header />
           <main>
@@ -21,8 +28,6 @@ function User () {
           </main>
           <Footer />
         </div>
-        )
-        : (<Routes><Route path='/*' element={<Connexion />} /></Routes>)
   )
 }
 export default User
