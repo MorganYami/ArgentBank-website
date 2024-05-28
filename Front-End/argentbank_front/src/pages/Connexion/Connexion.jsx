@@ -1,17 +1,18 @@
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
-import Form from "../../components/Form/Form";
+import Formulaire from '../../components/Formulaire/Formulaire'
 
-function SignIn() {
+
+function Connexion () {
   return (
     <div className='connexion'>
       <Header />
       <main>
-        <Form />
+        <Formulaire />
       </main>
       <Footer />
     </div>
   )
 }
 
-export default SignIn;
+export default Connexion

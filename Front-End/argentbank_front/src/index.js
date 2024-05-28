@@ -1,50 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux'
-import { createBrowserRouter, RouterProvider, } from "react-router-dom";
-
-import App from './App';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Accueil from './pages/Accueil/Accueil';
-import SignIn from './pages/SignIn/SignIn';
+import Connexion from './pages/Connexion/Connexion';
 import User from './pages/User/User';
-import Error from './pages/Error/Error';
-
-import store from './store/store';
-
+import { Provider } from 'react-redux';
 import './main.scss';
+import { store } from './store/store';
+// import { AuthProvider } from "./store/AuthProvider";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <Error />,
-    children: [
-      {
-        path: '/',
-        element: <Accueil />,
-      },
-      {
-        path: '/SignIn',
-        element: <SignIn />,
-      },
-      {
-        path: '/User/*',
-        element: <User />
-      },
-      {
-        path: 'Error',
-        element: <Error />,
-      },
-    ]
-  },
-]);
+const container = document.getElementById('root')
+const root = createRoot(container)
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-     <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>
-);
+  <Provider store={store}>
+    <React.StrictMode>
+      {/* <AuthProvider> */}
+        <Router>
+          <Routes>
+            <Route path='/' element={<Accueil />} />
+            <Route path='/Login' element={<Connexion />} />
+            <Route path='profile/*' element={<User />} />
+            <Route path='/*' element={<Connexion />} />
+          </Routes>
+        </Router>
+      {/* </AuthProvider> */}
+    </React.StrictMode>
+  </Provider>
+)
