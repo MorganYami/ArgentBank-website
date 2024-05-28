@@ -1,5 +1,3 @@
-// import store from '../../redux/store'
-// import { updateUserInfo } from '../../redux/action'
 import { useSelector } from 'react-redux'
 
 

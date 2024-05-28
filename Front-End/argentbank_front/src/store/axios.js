@@ -1,5 +1,9 @@
 import axios from "axios";
 
-export default axios.create({
+const instance = axios.create({
   baseURL: "http://localhost:3001/api/v1",
 });
+
+// instance.defaults.headers.common["Authorization"] = `Bearer ${TOKEN}`;
+
+export default instance

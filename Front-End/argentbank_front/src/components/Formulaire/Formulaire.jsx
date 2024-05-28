@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom'
-import axios from "../../app/axios";
-import AuthContext from "../../app/AuthProvider";
+import instance from "../../store/axios";
+import AuthContext from "../../store/AuthProvider";
 import { useDispatch } from "react-redux";
-import { logIn } from "../../app/authSlice";
+import { logIn } from "../../store/reducer";
 
 const LOGIN_URL = "/user/login";
 
-function Formulaire () {
+function Formulaire() {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -21,16 +21,16 @@ function Formulaire () {
   }, [email, password]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
-      const response = await axios.post(
+      const response = await instance.post(
         LOGIN_URL,
         JSON.stringify({ email, password }),
         {
           headers: {
             "Content-type": "application/json",
           },
-          withCredentials: false, 
+          withCredentials: false,
         }
       );
       console.log(JSON.stringify(response));
@@ -53,38 +53,32 @@ function Formulaire () {
       );
     } catch (error) {
       if (!error.response) {
-        setErrMsg("No Server Response"); 
+        setErrMsg("No Server Response");
       } else if (error.response?.status === 400) {
-        setErrMsg("Wrong Email or Password"); 
+        setErrMsg("Wrong Email or Password");
       } else {
-        setErrMsg("Login Failed"); 
+        setErrMsg("Login Failed");
       }
     }
   };
 
-  // if (statutReq === 'error') {
-  //   form = document.getElementsByTagName('form')[0]
-  //   let pError = document.getElementsByClassName('error')[0]
-  //   if (pError === undefined) {
-  //     pError = document.createElement('p')
-  //     pError.classList.add('error')
-  //     pError.textContent = 'Invalid username or password'
-  //     form.appendChild(pError)
-  //   }
-  // }
-
   return (
     <section>
+      <p className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
       <i className='fa fa-user-circle fa-4x sign-in-icon' />
       <h1> Sign In </h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='input-wrapper'>
-          <label htmlFor='email'>Username</label>
-          <input type='text' list='usernames' id='email' autoComplete="off" required />
+          <label htmlFor='email'>Email</label>
+          <input type='text' list='usernames' id='email' autoComplete="off" required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className='input-wrapper'>
           <label htmlFor='password'>Password</label>
-          <input type='password' id='password' autoComplete="off" required />
+          <input type='password' id='password' autoComplete="off" required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className='input-remember'>
           <label htmlFor='remember-me'>Remember me</label>
@@ -92,8 +86,8 @@ function Formulaire () {
         </div>
         <button
           className='sign-in-button'
-          onClick={connexion}
-        > Sign In
+          type="submit">
+          Sign In
         </button>
       </form>
     </section>

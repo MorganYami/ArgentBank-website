@@ -6,7 +6,7 @@ const initialState = {
   token: null,
   firstName: null,
   lastName: null,
-  userName: null,
+  // userName: null,
 };
 
 const authSlice = createSlice({
@@ -22,7 +22,7 @@ const authSlice = createSlice({
       state.token = null;
     },
     updateProfile: (state, action) => {
-      state.userName = action.payload.userName;
+      // state.userName = action.payload.userName;
     },
   },
 });
@@ -33,4 +33,4 @@ export const selectUser = (state) => state.auth.email;
 export const selectToken = (state) => state.auth.token;
 export const selectFirstName = (state) => state.auth.firstName;
 export const selectLastName = (state) => state.auth.lastName;
-export const selectUserName = (state) => state.auth.userName;
+// export const selectUserName = (state) => state.auth.userName;
