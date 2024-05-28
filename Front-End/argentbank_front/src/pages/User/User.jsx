@@ -2,8 +2,6 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Compte from '../../components/Compte/Compte'
 import Information from '../../components/Information/Information'
-import Connexion from '../Connexion/Connexion'
-import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import React from "react";
