@@ -9,7 +9,7 @@ function Information () {
 return (
     <div className='information'>
       <h1> Welcome back <br /> {prenom} {nom} </h1>
-      <button onClick={(event) => {}}> Edit Name </button>
+      <button > Edit Name </button>
     </div>
   )
 }

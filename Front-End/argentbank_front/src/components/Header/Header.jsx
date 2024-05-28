@@ -5,7 +5,7 @@ import { logout } from '../../store/reducer';
 import Logo from '../../assets/images/argentBankLogo.webp';
 
 function Header() {
-    // Enregistrement du token avec useSelector
+    // registration of the token
     const token = useSelector(state => state.user.token);
     const user = useSelector(store => store.user)
     const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function Header() {
                 <div>
                     {
                         token ?
-                        // Si le token est là mettre le lien de déconnexion
+                        // if token is valid : add link to deconnect
                         <div className='user-nav'>
                             <NavLink className="user-nav-item" to={'/User'}>
                                 <p className='user-nav-name'>{user.userName}</p>
@@ -34,7 +34,7 @@ function Header() {
                             </NavLink>
                         </div>
                         :
-                        // Sinon laisser le Sign In
+                        // else leave the Sign In
                         <NavLink className="main-nav-item" to={'/SignIn'}>
                             <i className="fa fa-user-circle"></i>
                             Sign In

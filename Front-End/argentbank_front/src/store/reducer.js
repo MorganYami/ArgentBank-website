@@ -1,53 +1,37 @@
+import { createSlice } from "@reduxjs/toolkit";
+import instance from "./axios";
+
 const initialState = {
   token: null,
   userName: '',
   firstName: '',
   lastName: '',
-  email: '',
-  id: '',
-  isLogged: false,
 };
 
-export const login = (payload) => {
-  return {
-      type: 'LOGIN',
-      payload,
-  }
-}
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    
+    logout: (state) => {
+      state.email = null;
+      state.token = null;
+    },
+    saveToken: (state, action) => {
+      state.token = action.payload;
+      instance.defaults.headers.common["Authorization"] = `Bearer ${state.token}`
+    },
+    updateProfile: (state, action) => {
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+    },
+  },
+});
 
-export const isLogged = (payload) => {
-  return {
-    type: 'IS_LOGGED',
-    payload,
-  }
-}
+export const { logout, saveToken, updateProfile } = authSlice.actions;
 
-export const editName = (payload) => {
-  return {
-      type: 'EDIT_NAME',
-      payload,
-  }
-}
-
-export const logout = () => {
-  return {
-      type: 'LOGOUT',
-  }
-}
-
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-      case 'LOGIN':
-          return { ...state, ...action.payload, isLogged: true }
-      case 'IS_LOGGED':
-          return { ...state, ...action.payload };
-      case'EDIT_NAME':
-          return { ...state, ...action.payload };
-      case 'LOGOUT':
-          return initialState
-      default:
-          return state
-  }
-}
-
-export default reducer;
+export default authSlice.reducer;
+export const selectUser = (state) => state.auth.email;
+export const selectToken = (state) => state.auth.token;
+export const selectFirstName = (state) => state.auth.firstName;
+export const selectLastName = (state) => state.auth.lastName;

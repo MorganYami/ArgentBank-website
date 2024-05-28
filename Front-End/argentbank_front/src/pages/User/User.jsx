@@ -1,81 +1,58 @@
-import React, { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom"
-import { editName, isLogged } from "../../store/reducer";
-
-
+import React, { useEffect } from "react";
+import instance from "../../store/axios";
+import {
+  updateProfile,
+} from "../../store/reducer";
+import { Navigate } from "react-router-dom";
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Compte from '../../components/Compte/Compte'
 import Information from '../../components/Information/Information'
 
-function User () {
-  const user = useSelector(store => store.user)
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+function User() {
 
-  const [formdata] = useState({
-      id: "",
-      email:"",
-  })
-
+  const dispatch = useDispatch();
+  const accessToken = useSelector(store => store.user);
+  console.log("token 1: ",accessToken);
+  // get the profile :
   useEffect(() => {
-      // S'il n'y a pas de user.token retourne vers la page SignIn
-      if (user.token === null) {
-          return navigate('/SignIn');
-      } else {
-          const handleProfile = async() => {
-              try {
-                  await fetch('http://localhost:3001/api/v1/user/profile', {
-                      method: 'POST',
-                      headers: {
-                          'Content-Type': 'application/json',
-                          'Accept': 'application/json',
-                          'Authorization': `Bearer ${user.token}`
-                      },
-                      body: JSON.stringify(formdata)
-                  }).then(response => {
-                      if (response.ok) {
-                          return response.json()
-                      }
-                  }).then(data => {
-                      dispatch(isLogged(data.body))
-                  })
-              } catch(error) {
-                  console.log(error)
-              }
-          };
-
-          handleProfile();
-      }
-  }, [dispatch, navigate, user.token, user.isLogged, formdata])
-
-  const [showEditForm, setShowEditForm] = useState(false);
-
-  const handleShowEditForm = () => {
-      setShowEditForm(!showEditForm);
+  console.log("token 2: ",accessToken);
+  if (!accessToken) {
+    console.log("pas de token valide!")
+    return Navigate('/SignIn');
   }
 
-  const handleEditFormSubmit = async (e) => {
-      e.preventDefault();
-      dispatch(editName(formdata));
-      setShowEditForm(false);
-  }
+    const getProfile = async () => {
+      const response = await instance.post('/user/profile', {});
+      const data = response?.data?.body;
+      console.log(data);
+      console.log(response);
 
-  const editModeUser = showEditForm ? "main" : "main user-bg-dark";
+      dispatch(
+        updateProfile({
+          ...data,
+        })
+      );
+    };
+    getProfile();
+  }, [accessToken, dispatch]);
+
+
 
   return (
     <div className='user'>
-    <Header />
-    <main>
-      <Information />
-      <Compte titre='Argent Bank Checking (x8349)' montant='$2,082.79' description='Available Balance' />
-      <Compte titre='Argent Bank Savings (x6712)' montant='$10,928.42' description='Available Balance' />
-      <Compte titre='Argent Bank Credit Card (x8349)' montant='$184.30' description='Current Balance' />
-    </main>
-    <Footer />
-  </div>
+      <Header />
+      <main>
+        <Information />
+        <Compte titre='Argent Bank Checking (x8349)' montant='$2,082.79' description='Available Balance' />
+        <Compte titre='Argent Bank Savings (x6712)' montant='$10,928.42' description='Available Balance' />
+        <Compte titre='Argent Bank Credit Card (x8349)' montant='$184.30' description='Current Balance' />
+      </main>
+      <Footer />
+    </div>
   )
 }
 export default User

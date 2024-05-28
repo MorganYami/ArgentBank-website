@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../../store/reducer";
+import {  saveToken } from "../../store/reducer";
 import { useNavigate } from "react-router-dom";
+// import instance from "../../store/axios";
+import { authenticate } from "../../service/api";
+
 
 function Form() {
-  //mocking temporaire
+  //mocking temp
   const [formdata, setFormdata] = useState({
     email: "tony@stark.com",
     password: "password123",
@@ -17,34 +20,20 @@ function Form() {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
+    const response = await authenticate(formdata.email, formdata.password);
+    console.log(response)
+    dispatch(saveToken(response.token))
+    navigate('/User');
 
-     fetch('http://localhost:3001/api/v1/user/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formdata)
-      // Si la réponse est réussie, extraire les données JSON de la réponse.
-    }).then(response => {
-        if (response.ok) {
-          console.log("Connected");
-            return response.json()
-        }
-        else {
-          console.log("Error: " ,response);
-        }
-      // Si les données JSON sont valides, connecter l'utilisateur.
-    }).then(data => {
-        dispatch(login(data.body))
-        navigate('/User');
-    })
+    
   }
+
 
   return (
 
-<section>
+    <section>
       <i className='fa fa-user-circle fa-4x sign-in-icon' />
       <h1> Sign In </h1>
       <form>
