@@ -1,7 +1,6 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
-import instance from "../../store/axios";
 import {
   updateProfile,
 } from "../../store/reducer";
@@ -10,34 +9,39 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Compte from '../../components/Compte/Compte'
 import Information from '../../components/Information/Information'
+import { getUserProfile } from "../../service/api";
 
 
 function User() {
 
   const dispatch = useDispatch();
   const accessToken = useSelector(store => store.user);
-  console.log("token 1: ",accessToken);
   // get the profile :
   useEffect(() => {
-  console.log("token 2: ",accessToken);
   if (!accessToken) {
-    console.log("pas de token valide!")
+    console.log("No token!")
     return Navigate('/SignIn');
   }
-
+  try  {
     const getProfile = async () => {
-      const response = await instance.post('/user/profile', {});
-      const data = response?.data?.body;
-      console.log(data);
-      console.log(response);
-
+      const response = await getUserProfile(accessToken);
       dispatch(
         updateProfile({
-          ...data,
+          ...response,
         })
       );
     };
     getProfile();
+  } catch(error){
+    if (error.response?.status === 400) {
+      console.log("Token Invalid");
+      return Navigate('/SignIn');
+    }
+    else {
+      console.log("Server Error");
+      return Navigate('/SignIn');
+    }
+    }
   }, [accessToken, dispatch]);
 
 

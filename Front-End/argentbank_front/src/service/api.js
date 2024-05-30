@@ -5,3 +5,7 @@ export const authenticate = async (email, password) => {
     return response.data.body
 }
 
+export const getUserProfile = async (token) => {
+    const response = await instance.post('/user/profile', {token})
+    return response.data.body
+}
