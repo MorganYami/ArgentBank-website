@@ -10,6 +10,21 @@ function Form() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const addErrorMsg = (msg) => {
+    let formulaire = document.getElementsByTagName('form')[0];
+    let pError = document.getElementsByClassName('error')[0];
+    if (pError === undefined) {
+      pError = document.createElement('p')
+      pError.classList.add('error')
+      pError.textContent = msg
+      formulaire.appendChild(pError)
+      console.log(msg);
+    }
+    else {
+      pError.textContent = msg
+      console.log(msg);
+    }
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -21,11 +36,14 @@ function Form() {
       navigate('/User');
     } catch (error) {
       if (!error.response) {
-        console.log("No Server Response");
+        const errorMsg = "No Server Response: try again later";
+        addErrorMsg(errorMsg);
       } else if (error.response?.status === 400) {
-        console.log("Wrong Email or Password");
+        const errorMsg = "Wrong Email or Password";
+        addErrorMsg(errorMsg);
       } else {
-        console.log("Login Failed");
+        const errorMsg = "Login Failed: something went wrong";
+        addErrorMsg(errorMsg);
       }
     }
   }
@@ -40,8 +58,6 @@ function Form() {
         <div className='input-wrapper'>
           <label htmlFor='email'>Email</label>
           <input type='text' list='usernames' id='email' autoComplete="off" required
-            // value={formdata.email}
-            // onChange={handleChange} 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -49,8 +65,6 @@ function Form() {
         <div className='input-wrapper'>
           <label htmlFor='password'>Password</label>
           <input type='password' id='password' autoComplete="off" required
-            // value={formdata.password}
-            // onChange={handleChange} 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
