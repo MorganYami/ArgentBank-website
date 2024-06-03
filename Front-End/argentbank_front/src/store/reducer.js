@@ -24,6 +24,7 @@ const authSlice = createSlice({
     updateProfile: (state, action) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
+      state.userName = action.payload.userName;
     },
   },
 });
@@ -31,7 +32,4 @@ const authSlice = createSlice({
 export const { logout, saveToken, updateProfile } = authSlice.actions;
 
 export default authSlice.reducer;
-export const selectUser = (state) => state.auth.email;
 export const selectToken = (state) => state.auth.token;
-export const selectFirstName = (state) => state.auth.firstName;
-export const selectLastName = (state) => state.auth.lastName;

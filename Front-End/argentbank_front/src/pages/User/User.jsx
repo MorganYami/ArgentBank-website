@@ -1,9 +1,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
-import {
-  updateProfile,
-} from "../../store/reducer";
+import { updateProfile } from "../../store/reducer";
 import { Navigate } from "react-router-dom";
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'

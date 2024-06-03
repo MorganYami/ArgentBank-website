@@ -9,3 +9,8 @@ export const getUserProfile = async (token) => {
     const response = await instance.post('/user/profile', {token})
     return response.data.body
 }
+
+export const updateUserInfo = async (userName) => {
+    const response = await instance.put('/user/profile', {userName})
+    return response.data.body
+}
