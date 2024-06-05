@@ -26,10 +26,13 @@ const authSlice = createSlice({
       state.lastName = action.payload.lastName;
       state.userName = action.payload.userName;
     },
+    updateUserName: (state, action) => {
+      state.userName = action.payload;
+    }
   },
 });
 
-export const { logout, saveToken, updateProfile } = authSlice.actions;
+export const { logout, saveToken, updateProfile, updateUserName } = authSlice.actions;
 
 export default authSlice.reducer;
-export const selectToken = (state) => state.auth.token;
+export const selectToken = (state) => state.user.token;

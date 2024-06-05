@@ -28,7 +28,7 @@ function Header() {
                             <div className="user-nav-item">
                                 <i className="user-nav-icon fa fa-gear"></i>
                             </div>                            
-                            <NavLink className="user-nav-item" to={'/SignIn'} onClick={() => dispatch(logout())}>
+                            <NavLink className="user-nav-item" to={'/'} onClick={() => dispatch(logout())}>
                             <i className="user-nav-icon fa fa-power-off"></i>
                             </NavLink>
                         </div>

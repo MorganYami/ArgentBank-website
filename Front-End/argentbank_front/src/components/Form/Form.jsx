@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { saveToken } from "../../store/reducer";
-import { useNavigate } from "react-router-dom";
-import { authenticate } from "../../service/api";
+import { useDispatch, useSelector } from "react-redux";
+import { saveToken, updateProfile } from "../../store/reducer";
+import { Navigate, useNavigate } from "react-router-dom";
+import { authenticate, getUserProfile } from "../../service/api";
 
 
 function Form() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const accessToken = useSelector(store => store.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const addErrorMsg = (msg) => {
@@ -33,6 +34,30 @@ function Form() {
       dispatch(saveToken(response.token))
       setEmail("");
       setPassword("");
+      //Storage of User data into the store
+      try {
+      const getProfile = async () => {
+        const response = await getUserProfile(accessToken);
+        console.log(response);
+        dispatch(
+          updateProfile({
+            ...response,
+          })
+        );
+      };
+      getProfile();
+    } catch (error) {
+      if (error.response?.status === 401) {
+        console.log("Token Invalid");
+        return Navigate('/SignIn');
+      }
+      else {
+        console.log("Server Error");
+        return Navigate('/SignIn');
+      }
+    }
+
+
       navigate('/User');
     } catch (error) {
       if (!error.response) {
