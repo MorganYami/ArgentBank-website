@@ -1,0 +1,250 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation - proposition for phase two
+  description: Contains API endpoints propositions for the phase two of the project
+  version: '1.0.1'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/accounts/{month}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Last month transactions
+      description: API for Transactions
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions received successfully
+          schema:
+            $ref: '#/definitions/TransactionsResponse'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Request Lacks Valid Authentication
+        '404':
+          description: Requested Resource Not Found
+        '500':
+          description: Internal Server Error
+
+  /user/accounts/{accountId}/transactions/{transactionId}:
+    get:
+      tags:
+        - Transactions Module
+      summary: Transactions Information API
+      description: API for fetching the informations of a specific transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction informations received Successfully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Request Lacks Valid Authentication
+        '404':
+          description: Requested Resource Not Found
+        '500':
+          description: Internal Server Error
+
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Transaction Informations API
+      description: API for updating the informations of a transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Update user transaction informations
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction informations updated
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Request Lacks Valid Authentication
+        '404':
+          description: Requested Resource Not Found
+        '500':
+          description: Internal Server Error
+
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Transaction Informations API
+      description: API for updating the informations of a transaction
+      parameters:
+        - type: string
+          in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction deleted successfuly
+          schema:
+            $ref: '#/definitions/TransactionDeletedResponse'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Request Lacks Valid Authentication
+        '404':
+          description: Requested Resource Not Found
+        '500':
+          description: Internal Server Error
+
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  User:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+      firstName:
+        type: string
+        description: user first name
+      lastName:
+        type: string
+        description: user last name
+  Login:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  UserProfile:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+  TransactionsResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          transactions:
+            type: object
+            properties:
+              transaction:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                  description:
+                    type: string
+                  amount:
+                    type: integer
+                  balance:
+                    type: integer
+  TransactionResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          transaction:
+            type: object
+            properties:
+              transactionType:
+                type: string
+              category:
+                type: string
+              notes:
+                type: string
+  Transaction:
+    type: object
+    properties:
+      transactionType:
+        type: string
+      category:
+        type: string
+      notes:
+        type: string
+
+  TransactionDeletedResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
