@@ -101,7 +101,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-
+#Proposition for phase 2: 
   /user/accounts/transactions:
     get:
       security:
