@@ -24,7 +24,7 @@ root.render(
         <Route path='/' element={<Guard/>}>
         <Route path='User/*' element={<User/>}/>
         </Route>
-        <Route path='Error' element={<Error/>}/>
+        <Route path='*' element={<Error/>}/>
       </Routes>
      </BrowserRouter>
     </Provider>
