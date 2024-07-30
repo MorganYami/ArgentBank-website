@@ -1,14 +1,14 @@
-@import './Components/header/style.scss';
-@import './Components/footer/style.scss';
-@import './Components/intro/style.scss';
-@import './Components/item/style.scss';
+@import './Components/Header/style.scss';
+@import './Components/Footer/style.scss';
+@import './Components/Intro/style.scss';
+@import './Components/Item/style.scss';
 @import './Components/Form/style.scss';
-@import './Components/compte/style.scss';
-@import './Components/information/style.scss';
+@import './Components/Compte/style.scss';
+@import './Components/Information/style.scss';
 @import './pages/Error/style.scss';
-@import './Pages/accueil/style.scss';
+@import './Pages/Accueil/style.scss';
 @import './Pages/SignIn/style.scss';
-@import './Pages/user/style.scss';
+@import './Pages/User/style.scss';
 
 @media (min-width: 920px) {
     .introduction {
